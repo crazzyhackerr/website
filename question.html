@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Question ♡</title>
+  <link rel="icon" href="heart.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page">
+    <div class="card">
+      <p>Sooo Hmmm, ACTUAL QUESTION</p>
+      <p class="funkyfont">can we start over?</p>
+      <h2>will &nbsp;YOU&nbsp; go on a &nbsp;DATE&nbsp; with &nbsp;ME?</h2>
+      <p class="subtitle">Now you know me a little bit. Please be straightforward 😭 — if it's a no, just say it. No pressure. 🌷</p>
+
+      <div class="choices">
+        <button class="button yes" onclick="yes()">YES ♡</button>
+        <button class="button no" onclick="no()">NO</button>
+      </div>
+      <p id="status" class="tiny"></p>
+    </div>
+  </main>
+  <script>
+    function yes() {
+      location.href = "yes.html";
+    }
+    function no() {
+      location.href = "no.html";
+    }
+  </script>
+</body>
+</html>

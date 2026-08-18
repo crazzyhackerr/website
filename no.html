@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oh... okay 😭</title>
+  <link rel="icon" href="heart.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page">
+    <div class="card">
+      <div class="message">
+        <p >OH...</p>
+        <p>Okay...</p>
+        <p >Understandable <br> (╥ ᴗ ╥)</p>
+        
+      </div>
+
+      <div id="noForm">
+        <div class="note-field">
+          <label for="note">is there any reason? <span>(optional)</span></label>
+          <textarea id="note" placeholder="type here..."></textarea>
+        </div>
+        <button class="button no" id="sendButton" onclick="sendNo()">Submit</button>
+        <p id="status" class="tiny"></p>
+      </div>
+
+      <p class="scribble"> bhahaha i will miss you ...</p>
+      <a class="button" href="index.html">Return to start ↺</a>
+    </div>
+  </main>
+
+  <script>
+    const noteField = document.getElementById("note");
+
+    async function sendNo() {
+      const status = document.getElementById("status");
+      const sendButton = document.getElementById("sendButton");
+
+      status.textContent = "Sending... ";
+      sendButton.disabled = true;
+
+      try {
+        const response = await fetch("/api/response", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ response: "NO", note: noteField.value }),
+        });
+
+        if (!response.ok) throw new Error("failed");
+
+        document.getElementById("noForm").innerHTML = `
+          <div class="message">
+            <p class="highlight">Sent.</p>
+            <p>Thanks for being honest with me 🤍</p>
+          </div>
+        `;
+      } catch (e) {
+        status.textContent = "Oops, something went wrong. Please try again.";
+        sendButton.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>

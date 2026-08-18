@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WAIT... YES?! ♡</title>
+  <link rel="icon" href="heart.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page">
+    <div class="card">
+      <span class="doodle heart-doodle"><img src="decors/heart.png" alt="♡" width="46" height="46"></span>
+      <p class="tiny">processing 🤯...</p>
+      <p class="funkyfont">wait... actually?</p>
+      <h1>YOU SAID YES?!</h1>
+      <p class="subtitle">Okay, now I'm smiling like an idiot.<br>I'm really happy you said yes. ♡</p>
+
+      <div id="yesForm">
+        <div class="note-field">
+          <label for="note">anything else you wanna say? <span>(optional)</span></label>
+          <textarea id="note" placeholder="type here..."></textarea>
+        </div>
+        <button class="button" id="sendButton" onclick="sendYes()">Send it ♡</button>
+        <p id="status" class="tiny"></p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    async function sendYes() {
+      const status = document.getElementById("status");
+      const sendButton = document.getElementById("sendButton");
+      const note = document.getElementById("note").value;
+
+      status.textContent = "Sending... ♡";
+      sendButton.disabled = true;
+
+      try {
+        const response = await fetch("/api/response", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ response: "YES", note }),
+        });
+
+        if (!response.ok) throw new Error("failed");
+
+        document.getElementById("yesForm").innerHTML = `
+          <div class="message">
+            <p class="highlight">Sent! ♡</p>
+            <p>Okay, now it's officially your turn to wait for my reply 😌</p>
+          </div>
+        `;
+      } catch (error) {
+        status.textContent = "Oops! Something went wrong. Please try again.";
+        sendButton.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>
